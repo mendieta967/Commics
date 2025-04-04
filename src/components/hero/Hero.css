@@ -1,0 +1,148 @@
+.container-form {
+    display: grid;
+    place-items: center;
+    /* Centra tanto horizontal como verticalmente */
+    width: 100%;
+
+}
+
+.search-form-container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.btn-search {
+    width: 30%;
+    display: block;
+    margin: 1rem auto;
+}
+
+.hero-card-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-img {
+    width: 100%;
+}
+
+.card-img img {
+    width: 60%;
+    height: 80%;
+}
+
+.card-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-footer {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    text-align: end;
+    background-color: transparent;
+    border-top: 1px solid #eee;
+}
+
+/* Botón estilizado */
+.button {
+    background-color: #6c757d;
+    /* Gris Bootstrap */
+    color: white;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover y efecto al hacer click */
+.button:hover {
+    background-color: #5a6268;
+    transform: scale(1.05);
+}
+
+.button:active {
+    transform: scale(0.98);
+}
+
+.btn-regresar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+}
+
+@media (max-width: 768px) {
+    .hero-card-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .btn-search {
+        width: 100%;
+    }
+
+    .navbar {
+        flex-wrap: wrap;
+    }
+
+    .navbar-brand {
+        margin-bottom: 10px;
+    }
+
+    .navbar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-card-container {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .card-img {
+        height: 200px;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    .navbar {
+        padding: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-collapse {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .navbar-nav {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .d-flex {
+        width: 100%;
+        justify-content: space-between;
+    }
+}

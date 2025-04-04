@@ -1,0 +1,255 @@
+/* Estilos exclusivos para el contenedor de Login */
+.login-container {
+    background-image: url('../../../public/assets/fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor del formulario */
+.conteiner-login {
+    background: rgba(0, 0, 0, 0.75);
+    /* Fondo negro translúcido */
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(255, 0, 0, 0.5);
+    padding: 30px;
+    color: white;
+}
+
+/* Título */
+h5 {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ff0000;
+}
+
+/* Inputs personalizados */
+.form-control {
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid #ff0000;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.form-control:focus {
+    border-color: #ff0000;
+    box-shadow: 0px 0px 8px rgba(255, 0, 0, 0.7);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Botón estilo Deadpool */
+.btn-secondary {
+    background-color: #ff0000;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.btn-secondary:hover {
+    background-color: #292828;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.8);
+}
+
+/* Botón estilo Deadpool */
+.btn-primary {
+    background-color: #292828;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.btn-primary:hover {
+    background-color: #b30000;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 10px rgba(14, 14, 14, 0.8);
+}
+
+/* HeroCard.css */
+.animate__animated {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+/* Hace que todas las tarjetas tengan mismo alto */
+.card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Imágenes del mismo tamaño y centradas */
+.card-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+
+img {
+    width: 100%;
+    height: 3px;
+}
+
+/* El cuerpo ocupa el espacio disponible */
+.card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Pie de la tarjeta alineado a la derecha */
+.card-footer {
+    background-color: white;
+    border-top: none;
+    text-align: right;
+}
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .conteiner-login .card-body {
+        padding: 1.5rem;
+    }
+
+    .conteiner-login h5 {
+        font-size: 1.25rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .form-control {
+        height: 45px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-container {
+        padding: 15px;
+        align-items: flex-start;
+        padding-top: 50px;
+    }
+
+    .conteiner-login {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .conteiner-login .card-body {
+        padding: 1.25rem;
+    }
+
+    .conteiner-login h5 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        height: 40px;
+        font-size: 0.9rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    /* Make buttons stack on very small screens */
+    .col-md-6.d-flex {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px !important;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    /* Reset the column layout on mobile */
+    .row .col,
+    .row .col-md-6 {
+        padding: 0;
+    }
+
+    .d-flex.justify-content-end {
+        justify-content: center !important;
+    }
+}
+
+/* Animation for form elements */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-group {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+.form-group:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.btn {
+    animation: fadeIn 0.3s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+/* Establecer tamaño adaptable en general */
+.card-img img {
+    width: 100%;
+    max-width: 150px;
+    /* Tamaño máximo */
+    height: auto;
+    /* Mantiene la proporción */
+}
+
+/* Cambiar fondo en tablets */
+@media (max-width: 768px) {
+    .login-container {
+        background-image: url('../../../public/assets/pantallaChica.jpeg');
+    }
+}
+
+/* Cambiar fondo en móviles */
+@media (max-width: 576px) {
+    .login-container {
+        background-image: url('../../../public/assets/pantallaChica.jpeg');
+    }
+}
