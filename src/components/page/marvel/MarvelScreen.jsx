@@ -6,7 +6,7 @@ const MarvelScreen = () => {
       <h1>MarvelScreen</h1>
       <hr />
 
-      <HeroList publisher="Marvel Comics" />
+      <HeroList publisher="Marvel Comics" limit={100} />
     </div>
   );
 };

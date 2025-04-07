@@ -1,17 +1,23 @@
-import { heroes } from "../data/InfoHereos";
+import { getAllHeroes } from "../data/heroApi";
 
-export const getHeroesByName = (name = "") => {
-  console.log("getHeroesByName called", name);
-
-  if (!Array.isArray(heroes) || heroes.length === 0) {
-    console.error("Error: La lista de héroes no está cargada correctamente");
-    return [];
-  }
+export const getHeroesByName = async (name = "") => {
+  console.log("getHeroesByName called:", name);
 
   if (name.trim().length === 0) {
     return [];
   }
 
-  name = name.toLowerCase();
-  return heroes.filter((hero) => hero.superhero.toLowerCase().includes(name));
+  try {
+    const allHeroes = await getAllHeroes(); // trae todos
+    const lowerName = name.toLowerCase();
+
+    const filtered = allHeroes.filter((hero) =>
+      hero.name.toLowerCase().includes(lowerName)
+    );
+
+    return filtered;
+  } catch (error) {
+    console.error("Error al buscar héroes por nombre:", error);
+    return [];
+  }
 };

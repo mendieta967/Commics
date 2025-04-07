@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import queryString from "query-string";
 import { UseForm } from "../../../hooks/useForm";
@@ -18,7 +18,26 @@ const SearchScreen = () => {
 
   const { searchText } = formValues;
 
-  const heroesFileted = useMemo(() => getHeroesByName(q), [q]);
+  const [heroesFiltered, setHeroesFiltered] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // 🔍 Buscar héroes cuando cambia el query param
+  useEffect(() => {
+    const fetchHeroes = async () => {
+      if (q.trim() === "") {
+        setHeroesFiltered([]);
+        return;
+      }
+
+      setLoading(true);
+      const results = await getHeroesByName(q);
+      console.log("Resultados de búsqueda:", results); // <-- Añade esto
+      setHeroesFiltered(results);
+      setLoading(false);
+    };
+
+    fetchHeroes();
+  }, [q]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -29,6 +48,7 @@ const SearchScreen = () => {
     <>
       <h1>Búsquedas</h1>
       <hr />
+
       <div className="container-form">
         <div className="search-form-container">
           <h4 className="search-title">Buscar</h4>
@@ -49,24 +69,26 @@ const SearchScreen = () => {
           </form>
         </div>
       </div>
+
       <hr />
       <h1>Resultados</h1>
       <hr />
+
       <div className="container-SearchScreen">
         <div className="search-results">
-          {q === "" ? (
+          {loading ? (
+            <div className="alert alert-info custom-alert">
+              Cargando resultados...
+            </div>
+          ) : q === "" ? (
             <div className="alert alert-info custom-alert">Buscar un héroe</div>
+          ) : heroesFiltered.length === 0 ? (
+            <div className="alert alert-danger custom-alert">
+              No hay resultados para: <strong>{q}</strong>
+            </div>
           ) : (
-            heroesFileted.length === 0 && (
-              <div className="alert alert-danger custom-alert">
-                No hay resultados: <strong>{q}</strong>
-              </div>
-            )
+            heroesFiltered.map((hero) => <HeroCard key={hero.id} {...hero} />)
           )}
-
-          {heroesFileted.map((hero) => (
-            <HeroCard key={hero.id} {...hero} />
-          ))}
         </div>
       </div>
     </>

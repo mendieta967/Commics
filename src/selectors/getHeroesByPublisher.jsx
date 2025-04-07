@@ -1,10 +1,20 @@
-import { heroes } from "../data/InfoHereos";
+import { getAllHeroes } from "../data/heroApi"; // Usa la API de Akabab
 
-export const getHeroesByPublisher = (publisher) => {
-  const validPublishers = ["DC Comics", "Marvel Comics"];
+export const getHeroesByPublisher = async (publisher) => {
+  const validPublishers = ["DC Comics", "Marvel Comics", "Dark Horse Comics"];
   if (!validPublishers.includes(publisher)) {
     throw new Error(`${publisher} is not a valid publisher`);
   }
 
-  return heroes.filter((hero) => hero.publisher === publisher);
+  try {
+    const allHeroes = await getAllHeroes(); // trae todos
+    const filtered = allHeroes.filter(
+      (hero) => hero.biography?.publisher === publisher
+    );
+
+    return filtered;
+  } catch (error) {
+    console.error("Error al obtener héroes por publisher:", error);
+    return [];
+  }
 };

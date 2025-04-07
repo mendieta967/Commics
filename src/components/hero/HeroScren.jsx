@@ -1,59 +1,102 @@
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Navigate, useNavigate } from "react-router-dom";
-import getHeroById from "../../selectors/getHeroById";
+import getHeroes from "../../selectors/getHeroes"; // Esta función devuelve TODOS los héroes
 import "./Hero.css";
 
 export const HeroScreen = () => {
   const { heroeId } = useParams();
   const navigate = useNavigate();
 
-  const hero = useMemo(() => getHeroById(heroeId), [heroeId]);
+  const [hero, setHero] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchHero = async () => {
+      try {
+        const allHeroes = await getHeroes(); // Traés todos
+        const foundHero = allHeroes.find(
+          (h) => h.id.toString() === heroeId // Buscás por ID
+        );
+        setHero(foundHero);
+      } catch (error) {
+        console.error("Error al obtener el héroe:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHero();
+  }, [heroeId]);
 
   const handleReturn = () => {
     navigate(-1);
   };
 
-  if (!hero) {
-    return <Navigate to="/" />;
-  }
+  if (loading) return <p>Cargando héroe...</p>;
+  if (!hero) return <Navigate to="/" />;
 
-  const { id, superhero, publisher, alter_ego, first_appearance, characters } =
-    hero;
-
-  const imagePath = `/assets/${id}.jpg`;
+  const { name, biography, images, appearance, powerstats } = hero;
 
   return (
     <div className="row mt-5">
       <div className="col-4">
         <img
-          src={imagePath}
-          alt={superhero}
+          src={images?.lg || "/assets/no-image.jpg"} // 👈 CAMBIADO
+          alt={name}
           className="img-thumbnail animate__animated animate__fadeInLeft"
         />
       </div>
 
       <div className="col-8 animate__animated animate__fadeIn">
-        <h3>{hero.superhero}</h3>
+        <h3>{name}</h3>
         <ul className="list-group list-group-flush">
           <li className="list-group-item">
-            {" "}
-            <b>Alter ego:</b> {alter_ego}{" "}
+            <b>Nombre completo:</b> {name}
           </li>
           <li className="list-group-item">
-            {" "}
-            <b>Publisher:</b> {publisher}{" "}
+            <b>Editorial:</b> {biography.publisher}
           </li>
           <li className="list-group-item">
-            {" "}
-            <b>First Appearance:</b> {first_appearance}{" "}
+            <b>Primera aparición:</b> {biography.firstAppearance}
+          </li>
+          <li className="list-group-item">
+            <b>Lugar de nacimiento:</b> {biography.placeOfBirth}
+          </li>
+          <li className="list-group-item">
+            <b>Alineación: {biography.alignment}</b>
+          </li>
+          <li className="list-group-item">
+            <b>Altura: {appearance.height?.join(" / ")}</b>
+          </li>
+          <li className="list-group-item">
+            <b>Peso: {appearance.weight?.join(" / ")}</b>
           </li>
         </ul>
-
-        <h5 className="mt-3">Characters</h5>
-        <p>{characters}</p>
-
+      </div>
+      <div className="col-8 animate__animated animate__fadeIn">
+        <h3>Estadísticas de Poder</h3>
+        <ul className="list-group list-group-flush">
+          <li className="list-group-item">
+            <b>Inteligencia:</b> {powerstats.intelligence}
+          </li>
+          <li className="list-group-item">
+            <b>Fuerza:</b> {powerstats.strength}
+          </li>
+          <li className="list-group-item">
+            <b>Velocidad:</b> {powerstats.speed}
+          </li>
+          <li className="list-group-item">
+            <b>Durabilidad:</b> {powerstats.durability}
+          </li>
+          <li className="list-group-item">
+            <b>Poder:</b> {powerstats.power}
+          </li>
+          <li className="list-group-item">
+            <b>Combate:</b> {powerstats.combat}
+          </li>
+        </ul>
         <button className="button btn-regresar" onClick={handleReturn}>
-          Regresar
+          Atrás
         </button>
       </div>
     </div>
